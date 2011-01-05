@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="chrome://checkit/content/css/toolbar.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://checkit/skin/toolbar.css" type="text/css" ?>
 
 <!DOCTYPE overlay SYSTEM "chrome://checkit/locale/checkit.dtd">
 
@@ -15,7 +15,7 @@
     </window>
 
     <popup id="contentAreaContextMenu">
-	<menu id="checkitcontextmenu" label="&CheckItTitle;" class="menu-iconic" image="chrome://checkit/content/images/checkit_small.png">
+	<menu id="checkitcontextmenu" label="&CheckItTitle;" class="menu-iconic" image="chrome://checkit/skin/icon16.png">
 	    <menupopup id="checkitcontextmenupopup" onpopupshowing="checkItInterface.showHideContextMenus();">
 		<menuitem id="checkit-run-check-md2" label="MD2" oncommand="checkItInterface.compareChecksum('MD2');"/>
 		<menuitem id="checkit-run-check-md5" label="MD5" oncommand="checkItInterface.compareChecksum('MD5');"/>

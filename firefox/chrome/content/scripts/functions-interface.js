@@ -161,7 +161,7 @@ var checkItInterface = {
 		//alert user
 		var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
 		    .getService(Components.interfaces.nsIAlertsService);
-		alertsService.showAlertNotification("chrome://checkit/content/images/checkit_large.png",
+		alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
 		messagetitle, message,
 		false, "", null);
 	    }
@@ -179,7 +179,7 @@ var checkItInterface = {
 		    //alert user
 		    var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
 			.getService(Components.interfaces.nsIAlertsService);
-		    alertsService.showAlertNotification("chrome://checkit/content/images/checkit_large.png",
+		    alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
 		    messagetitle, message,
 		    false, "", null);
 		}

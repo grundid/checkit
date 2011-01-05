@@ -1,6 +1,8 @@
-content checkit chrome/content/
-locale checkit en-US chrome/locale/en-US/
-locale checkit pt-BR chrome/locale/pt-BR/
+content   checkit                    chrome/content/
+skin      checkit      classic/1.0   chrome/skin/
 
-overlay chrome://browser/content/browser.xul chrome://checkit/content/overlay.xul
-style chrome://global/content/customizeToolbar.xul chrome://checkit/content/css/toolbar.css
+locale    checkit  en-US         chrome/locale/en-US/
+locale    checkit  pt-BR         chrome/locale/pt-BR/
+
+overlay chrome://browser/content/browser.xul          chrome://checkit/content/overlay.xul
+style   chrome://global/content/customizeToolbar.xul  chrome://checkit/skin/toolbar.css
