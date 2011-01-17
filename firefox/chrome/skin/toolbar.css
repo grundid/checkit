@@ -1,7 +1,0 @@
-#checkit-toolbar-button {
-  list-style-image: url("chrome://checkit/skin/icon32.png");
-}
-
-toolbar[iconsize="small"] #checkit-toolbar-button {
-  list-style-image: url("chrome://checkit/skin/icon16.png");
-}
