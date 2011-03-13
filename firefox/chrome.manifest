@@ -5,3 +5,4 @@ locale    checkit  en-US         chrome/locale/en-US/
 locale    checkit  pt-BR         chrome/locale/pt-BR/
 
 overlay chrome://browser/content/browser.xul          chrome://checkit/content/overlay.xul
+style   chrome://global/content/customizeToolbar.xul  chrome://checkit/skin/toolbar.css

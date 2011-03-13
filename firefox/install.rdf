@@ -2,11 +2,11 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>checkit@lovinglinux.megabyet.net</em:id>
-		<em:version>1.1</em:version>
+		<em:version>1.1.2</em:version>
 		<em:type>2</em:type>
 		<em:name>CheckIt</em:name>
-		<em:description>Allows to compare a file checksum with a selected checksum from a web site.</em:description>
-		<em:creator>lovinglinux</em:creator>
+		<em:description>Allows to compare a file checksum with a selected checksum from a web site or to compare two files.</em:description>
+		<em:creator>webgapps</em:creator>
 		<em:contributor>Jaron Sphar</em:contributor>
 		<em:homepageURL>http://www.webgapps.org/addons/checkit</em:homepageURL>
 		<em:targetApplication>
