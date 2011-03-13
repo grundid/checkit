@@ -56,23 +56,28 @@ var checkItInterface = {
 			}
 
 			filechecksum = checkItInterface.getFileHash(aType);
-			originalchecksum = originalchecksum.toLowerCase();
+			aType = checkItInterface.getChecksumType(filechecksum);
 
-			//trigger alerts
-			if (filechecksum == originalchecksum){
-				message = aType+' '+strbundle.getString("isamatch");
-				messagetitle = strbundle.getString("checkitmessage");
-				var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-				.getService(Components.interfaces.nsIAlertsService);
-				alertsService.showAlertNotification("chrome://checkit/skin/icon48.png",
-						messagetitle, message,
-						false, "", null);
-			} else {
-				message = aType+' '+strbundle.getFormattedString("notamatch", [ originalchecksum, filechecksum ]);
-				messagetitle = strbundle.getString("checkitalert");
-				prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-				.getService(Components.interfaces.nsIPromptService);
-				prompts.alert(window, messagetitle, message);
+			if (aType) {
+
+				originalchecksum = originalchecksum.toLowerCase();
+
+				//trigger alerts
+				if (filechecksum == originalchecksum){
+					message = aType+' '+strbundle.getString("isamatch");
+					messagetitle = strbundle.getString("checkitmessage");
+					var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+					.getService(Components.interfaces.nsIAlertsService);
+					alertsService.showAlertNotification("chrome://checkit/skin/icon48.png",
+							messagetitle, message,
+							false, "", null);
+				} else {
+					message = aType+' '+strbundle.getFormattedString("notamatch", [ originalchecksum, filechecksum ]);
+					messagetitle = strbundle.getString("checkitalert");
+					prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+					.getService(Components.interfaces.nsIPromptService);
+					prompts.alert(window, messagetitle, message);
+				}
 			}
 		},
 
@@ -83,22 +88,31 @@ var checkItInterface = {
 			var file1checksum, file2checksum, message, messagetitle, prompts, alertsService;
 
 			file1checksum = checkItInterface.getFileHash(aType);
-			file2checksum = checkItInterface.getFileHash(aType);
+			aType = checkItInterface.getChecksumType(file1checksum);
 
-			if (file1checksum == file2checksum){
-				message = aType+' '+strbundle.getString("isamatch");
-				messagetitle = strbundle.getString("checkitmessage");
-				var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-				.getService(Components.interfaces.nsIAlertsService);
-				alertsService.showAlertNotification("chrome://checkit/skin/icon48.png",
-						messagetitle, message,
-						false, "", null);
-			} else {
-				message = aType+' '+strbundle.getFormattedString("filesnotmatch", [ file1checksum, file2checksum ]);
-				messagetitle = strbundle.getString("checkitalert");
-				prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-				.getService(Components.interfaces.nsIPromptService);
-				prompts.alert(window, messagetitle, message);
+			if (aType) {
+
+				file2checksum = checkItInterface.getFileHash(aType);
+				aType = checkItInterface.getChecksumType(file2checksum);
+
+				if (file2checksum){
+
+					if (file1checksum == file2checksum){
+						message = aType+' '+strbundle.getString("isamatch");
+						messagetitle = strbundle.getString("checkitmessage");
+						var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+						.getService(Components.interfaces.nsIAlertsService);
+						alertsService.showAlertNotification("chrome://checkit/skin/icon48.png",
+								messagetitle, message,
+								false, "", null);
+					} else {
+						message = aType+' '+strbundle.getFormattedString("filesnotmatch", [ file1checksum, file2checksum ]);
+						messagetitle = strbundle.getString("checkitalert");
+						prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+						.getService(Components.interfaces.nsIPromptService);
+						prompts.alert(window, messagetitle, message);
+					}
+				}
 			}
 		},
 
@@ -131,6 +145,8 @@ var checkItInterface = {
 				filechecksum = filechecksum.replace(/[^0-9a-f]/ig, '');
 				filechecksum = filechecksum.toLowerCase();
 				return filechecksum;
+			}else {
+				return false;
 			}
 		}
 };
