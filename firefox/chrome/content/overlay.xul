@@ -17,22 +17,52 @@
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbarbutton id="checkit-toolbar-button"
 			label="&CheckItTitle;" tooltiptext="&CheckItTitle;"
-			popup="checkit-contextmenu"
+			popup="checkit-toolbarmenu"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"/>
 	</toolbarpalette>
 
 	<popupset>
-		<menupopup id="checkit-contextmenu">
-			<menuitem id="checkit-hash" label="&CompareHash;" class="menuitem-iconic" image="chrome://checkit/skin/selected16.png" oncommand="checkItInterface.compareChecksum();" hidden="true"/>
-			<menu id="checkit-files" label="&CompareFiles;" class="menu-iconic" image="chrome://checkit/skin/file16.png">
+		<menupopup id="checkit-toolbarmenu">
+			<menu id="checkit-file" label="&GetFileHash;" class="menu-iconic" image="chrome://checkit/skin/file16.png">
 				<menupopup>
-					<menuitem label="MD5" oncommand="checkItInterface.compareFiles('MD5');" />
-					<menuitem label="SHA1" oncommand="checkItInterface.compareFiles('SHA1');" />
-					<menuitem label="SHA256" oncommand="checkItInterface.compareFiles('SHA256');" />
-					<menuitem label="SHA384" oncommand="checkItInterface.compareFiles('SHA384');" />
-					<menuitem label="SHA512" oncommand="checkItInterface.compareFiles('SHA512');" />
+					<menuitem label="MD5" oncommand="checkItInterface.generateFileHash('MD5');" />
+					<menuitem label="SHA1" oncommand="checkItInterface.generateFileHash('SHA1');" />
+					<menuitem label="SHA256" oncommand="checkItInterface.generateFileHash('SHA256');" />
+					<menuitem label="SHA384" oncommand="checkItInterface.generateFileHash('SHA384');" />
+					<menuitem label="SHA512" oncommand="checkItInterface.generateFileHash('SHA512');" />
+				</menupopup>
+			</menu>
+			<menu id="checkit-clipboard" label="&CompareWithClipboard;" class="menu-iconic" image="chrome://checkit/skin/clipboard16.png">
+				<menupopup>
+					<menuitem label="MD5" oncommand="checkItInterface.compareWithClipboard('MD5');" />
+					<menuitem label="SHA1" oncommand="checkItInterface.compareWithClipboard('SHA1');" />
+					<menuitem label="SHA256" oncommand="checkItInterface.compareWithClipboard('SHA256');" />
+					<menuitem label="SHA384" oncommand="checkItInterface.compareWithClipboard('SHA384');" />
+					<menuitem label="SHA512" oncommand="checkItInterface.compareWithClipboard('SHA512');" />
+				</menupopup>
+			</menu>
+			<menu id="checkit-hashfile" label="&CompareWithHashFile;" class="menu-iconic" image="chrome://checkit/skin/hashfile16.png">
+				<menupopup>
+					<menuitem label="MD5" oncommand="checkItInterface.comparewithHashFile('MD5');" />
+					<menuitem label="SHA1" oncommand="checkItInterface.comparewithHashFile('SHA1');" />
+					<menuitem label="SHA256" oncommand="checkItInterface.comparewithHashFile('SHA256');" />
+					<menuitem label="SHA384" oncommand="checkItInterface.comparewithHashFile('SHA384');" />
+					<menuitem label="SHA512" oncommand="checkItInterface.comparewithHashFile('SHA512');" />
+				</menupopup>
+			</menu>
+			<menu id="checkit-files" label="&CompareFiles;" class="menu-iconic" image="chrome://checkit/skin/files16.png">
+				<menupopup>
+					<menuitem label="MD5" oncommand="checkItInterface.compareTwoFiles('MD5');" />
+					<menuitem label="SHA1" oncommand="checkItInterface.compareTwoFiles('SHA1');" />
+					<menuitem label="SHA256" oncommand="checkItInterface.compareTwoFiles('SHA256');" />
+					<menuitem label="SHA384" oncommand="checkItInterface.compareTwoFiles('SHA384');" />
+					<menuitem label="SHA512" oncommand="checkItInterface.compareTwoFiles('SHA512');" />
 				</menupopup>
 			</menu>
 		</menupopup>
 	</popupset>
+	
+	<popup id="contentAreaContextMenu">
+		<menuitem id="checkit-hash-context" label="&CompareHash;" class="menuitem-iconic" image="chrome://checkit/skin/icon16.png" oncommand="checkItInterface.compareWithSelected();"/>
+	</popup>
 </overlay>

@@ -1,3 +1,6 @@
 <!ENTITY CheckItTitle "CheckIt">
 <!ENTITY CompareHash "Comparar hash e arquivo">
-<!ENTITY CompareFiles "Comparar arquivos">
+<!ENTITY CompareFiles "Comparar dois arquivos">
+<!ENTITY GetFileHash "Gerar hash de arquivo">
+<!ENTITY CompareWithClipboard "Comparar arquivo com clipboard">
+<!ENTITY CompareWithHashFile "Comparar arquivo com arquivo de hash">
