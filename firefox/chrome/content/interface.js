@@ -64,7 +64,7 @@ var checkItInterface = {
 					messagetitle = strbundle.getString("checkitmessage");
 					var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
 					.getService(Components.interfaces.nsIAlertsService);
-					alertsService.showAlertNotification("chrome://checkit/skin/icon32.png.png",
+					alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
 							messagetitle, message,
 							false, "", null);
 				} else {
