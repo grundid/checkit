@@ -38,7 +38,7 @@ var checkItInterface = {
 			var originalchecksum, filechecksum, aType, message, messagetitle, prompts, alertsService;
 
 			//get selected hash and check type
-			originalchecksum = content.getSelection().toString().replace(/[^0-9a-f]/ig, '');
+			originalchecksum = content.getSelection().toString().replace(/[^0-9a-f]/ig, '').toLowerCase();
 			aType = checkItInterface.getChecksumType(originalchecksum);
 
 			//trigger invalidhash alert
@@ -56,8 +56,6 @@ var checkItInterface = {
 
 			if (aType) {
 
-				originalchecksum = originalchecksum.toLowerCase();
-
 				//trigger alerts
 				if (filechecksum == originalchecksum){
 					message = aType+' '+strbundle.getString("isamatch");
@@ -68,7 +66,7 @@ var checkItInterface = {
 							messagetitle, message,
 							false, "", null);
 				} else {
-					message = aType+' '+strbundle.getFormattedString("notamatch", [ originalchecksum, filechecksum ]);
+					message = aType+' '+strbundle.getFormattedString("selectednotmatch", [ originalchecksum, filechecksum ]);
 					messagetitle = strbundle.getString("checkitalert");
 					prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 					.getService(Components.interfaces.nsIPromptService);
@@ -136,7 +134,7 @@ var checkItInterface = {
 								messagetitle, message,
 								false, "", null);
 					} else {
-						message = aType+' '+strbundle.getFormattedString("filesnotmatch", [ file1checksum, filehash ]);
+						message = aType+' '+strbundle.getFormattedString("hashfilenotmatch", [ file1checksum, filehash ]);
 						messagetitle = strbundle.getString("checkitalert");
 						prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 						.getService(Components.interfaces.nsIPromptService);
@@ -180,7 +178,7 @@ var checkItInterface = {
 			if (str) {
 
 				str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
-				pastetext = str.data.substring(0, strLength.value / 2);
+				pastetext = str.data.substring(0, strLength.value / 2).replace(/[^0-9a-f]/ig, '').toLowerCase();
 				aType = checkItInterface.getChecksumType(pastetext);
 
 				//trigger invalidhash alert
@@ -209,7 +207,7 @@ var checkItInterface = {
 									messagetitle, message,
 									false, "", null);
 						} else {
-							message = aType+' '+strbundle.getFormattedString("filesnotmatch", [ pastetext, file1checksum ]);
+							message = aType+' '+strbundle.getFormattedString("clipboardnotmatch", [ pastetext, file1checksum ]);
 							messagetitle = strbundle.getString("checkitalert");
 							prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 							.getService(Components.interfaces.nsIPromptService);
@@ -279,8 +277,7 @@ var checkItInterface = {
 				var hash = ch.finish(false);
 				function toHexString(charCode){ return ("0" + charCode.toString(16)).slice(-2); }
 				var filechecksum = [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
-				filechecksum = filechecksum.replace(/[^0-9a-f]/ig, '');
-				filechecksum = filechecksum.toLowerCase();
+				filechecksum = filechecksum.replace(/[^0-9a-f]/ig, '').toLowerCase();
 				return filechecksum;
 			}else {
 				return false;
@@ -311,9 +308,9 @@ var checkItInterface = {
 				do {
 					hasmore = istream.readLine(line);
 					lines.push(line.value);
-					aType = checkItInterface.getChecksumType(line.value);
+					aType = checkItInterface.getChecksumType(line.value.toString().replace(/[^0-9a-f]/ig, '').toLowerCase());
 					if(aType){
-						return line.value;
+						return line.value.toString().replace(/[^0-9a-f]/ig, '').toLowerCase();
 						break;
 					}
 
