@@ -5,15 +5,15 @@
 		<em:version>1.1.4</em:version>
 		<em:type>2</em:type>
 		<em:name>CheckIt</em:name>
-		<em:description>Allows to compare a file checksum with a selected checksum from a web site or to compare two files.</em:description>
+		<em:description>Adds file hash generation and comparison tools to Firefox. It supports MD5, SHA-1, SHA-256, SHA-384 and SHA-512, which are detected automatically.</em:description>
 		<em:creator>webgapps</em:creator>
 		<em:contributor>Jaron Sphar</em:contributor>
-		<em:homepageURL>http://www.webgapps.org/addons/checkit</em:homepageURL>
+		<em:homepageURL>http://www.webgapps.org/add-ons/checkit</em:homepageURL>
 		<em:targetApplication>
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>3.0</em:minVersion>
-				<em:maxVersion>6.0a1</em:maxVersion>
+				<em:maxVersion>7.0a1</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	</Description>
