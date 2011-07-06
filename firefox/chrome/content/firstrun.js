@@ -22,7 +22,7 @@ var checkItFirstrun = {
 					checkItFirstrun.updateInstall(current);
 				});
 			}
-			window.removeEventListener("load",function(){ flashaidFirstrun.init(); },true);
+			window.removeEventListener("load",function(){ checkItFirstrun.init(); },true);
 		},
 
 		updateInstall: function(aVersion){//check version and perform updates
