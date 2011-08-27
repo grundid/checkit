@@ -1,6 +1,8 @@
 var checkItFirstrun = {
 
 		init: function(){//get current version from extension manager
+			
+			"use strict";
 
 			try {// Firefox <= 3.6
 
@@ -8,16 +10,13 @@ var checkItFirstrun = {
 				var gExtensionManager = Components.classes["@mozilla.org/extensions/manager;1"]
 				.getService(Components.interfaces.nsIExtensionManager);
 				var current = gExtensionManager.getItemForID("checkit@lovinglinux.megabyet.net").version;
-
 				checkItFirstrun.updateInstall(current);
 			}
 			catch(e){// Firefox >=4.0
 
 				//get current version from extension manager
 				Components.utils.import("resource://gre/modules/AddonManager.jsm");
-
 				AddonManager.getAddonByID("checkit@lovinglinux.megabyet.net", function(addon) {
-
 					var current = addon.version;
 					checkItFirstrun.updateInstall(current);
 				});
@@ -26,6 +25,8 @@ var checkItFirstrun = {
 		},
 
 		updateInstall: function(aVersion){//check version and perform updates
+			
+			"use strict";
 			
 			//access preferences interface
 			this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
@@ -45,6 +46,7 @@ var checkItFirstrun = {
 
 				if(firstrun){//actions specific for first installation
 
+					//add toolbar button
 					var navbar = document.getElementById("nav-bar");
 					var newset = navbar.currentSet + ",checkit-toolbar-button";
 					navbar.currentSet = newset;
@@ -63,6 +65,7 @@ var checkItFirstrun = {
 
 					if(ver !== "1.1.1"){
 
+						//add toolbar button
 						var navbar = document.getElementById("nav-bar");
 						var newset = navbar.currentSet + ",checkit-toolbar-button";
 						navbar.currentSet = newset;

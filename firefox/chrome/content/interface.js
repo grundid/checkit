@@ -1,6 +1,7 @@
 var checkItInterface = {
 
 		init: function () {
+			"use strict";
 			var contextMenu = document.getElementById("contentAreaContextMenu");
 			if (contextMenu) {
 				contextMenu.addEventListener("popupshowing", function(e) { checkItInterface.onShowing(e); }, false);
@@ -8,6 +9,7 @@ var checkItInterface = {
 		},
 
 		onShowing: function (e) {
+			"use strict";
 			var context = document.getElementById("checkit-hash-context");
 			var orig = content.getSelection().toString().replace(/[^0-9a-f]/ig, '');
 			var type = checkItInterface.getChecksumType(orig);
@@ -21,17 +23,24 @@ var checkItInterface = {
 		},
 
 		getChecksumType: function (checksum) {
+			"use strict";
 			switch(checksum.length) {
-			case 32: return 'MD5'; break;
-			case 40: return 'SHA1'; break;
-			case 64: return 'SHA256'; break;
-			case 96: return 'SHA384'; break;
-			case 128: return 'SHA512'; break;
-			default: return false;
+				case 32: return 'MD5'; break;
+				case 40: return 'SHA1'; break;
+				case 64: return 'SHA256'; break;
+				case 96: return 'SHA384'; break;
+				case 128: return 'SHA512'; break;
+				default: return false;
 			}
 		},
 
 		compareWithSelected: function () {
+			
+			"use strict";
+
+			// get osString
+			var osString = Components.classes["@mozilla.org/network/protocol;1?name=http"]
+			.getService(Components.interfaces.nsIHttpProtocolHandler).oscpu;
 
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
@@ -58,13 +67,20 @@ var checkItInterface = {
 
 				//trigger alerts
 				if (filechecksum == originalchecksum){
+
 					message = aType+' '+strbundle.getString("isamatch");
 					messagetitle = strbundle.getString("checkitmessage");
-					var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-					.getService(Components.interfaces.nsIAlertsService);
-					alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
-							messagetitle, message,
-							false, "", null);
+					
+					if (osString.match(/OSX/) || osString.match(/Macintosh/) || osString.match(/OS X/)) {
+						prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+						.getService(Components.interfaces.nsIPromptService);
+						prompts.alert(window, messagetitle, message);
+					}else{
+						alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+						.getService(Components.interfaces.nsIAlertsService);
+						alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",	messagetitle, message, false, "", null);
+					}
+
 				} else {
 					message = aType+' '+strbundle.getFormattedString("selectednotmatch", [ originalchecksum, filechecksum ]);
 					messagetitle = strbundle.getString("checkitalert");
@@ -76,6 +92,12 @@ var checkItInterface = {
 		},
 
 		compareTwoFiles: function (aType) {
+			
+			"use strict";
+			
+			// get osString
+			var osString = Components.classes["@mozilla.org/network/protocol;1?name=http"]
+			.getService(Components.interfaces.nsIHttpProtocolHandler).oscpu;
 
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
@@ -92,13 +114,20 @@ var checkItInterface = {
 				if (file2checksum){
 
 					if (file1checksum == file2checksum){
+
 						message = aType+' '+strbundle.getString("isamatch");
 						messagetitle = strbundle.getString("checkitmessage");
-						var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-						.getService(Components.interfaces.nsIAlertsService);
-						alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
-								messagetitle, message,
-								false, "", null);
+						
+						if (osString.match(/OSX/) || osString.match(/Macintosh/) || osString.match(/OS X/)) {
+							prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+							.getService(Components.interfaces.nsIPromptService);
+							prompts.alert(window, messagetitle, message);
+						}else{
+							alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+							.getService(Components.interfaces.nsIAlertsService);
+							alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",	messagetitle, message, false, "", null);
+						}
+
 					} else {
 						message = aType+' '+strbundle.getFormattedString("filesnotmatch", [ file1checksum, file2checksum ]);
 						messagetitle = strbundle.getString("checkitalert");
@@ -111,6 +140,13 @@ var checkItInterface = {
 		},
 
 		comparewithHashFile: function (aType) {
+			
+			"use strict";
+
+			// get osString
+			var osString = Components.classes["@mozilla.org/network/protocol;1?name=http"]
+			.getService(Components.interfaces.nsIHttpProtocolHandler).oscpu;
+
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
 			var file1checksum, filehash, message, messagetitle, prompts, alertsService;
@@ -126,13 +162,20 @@ var checkItInterface = {
 				if (filehash){
 
 					if (file1checksum == filehash){
+
 						message = aType+' '+strbundle.getString("isamatch");
 						messagetitle = strbundle.getString("checkitmessage");
-						var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-						.getService(Components.interfaces.nsIAlertsService);
-						alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
-								messagetitle, message,
-								false, "", null);
+
+						if (osString.match(/OSX/) || osString.match(/Macintosh/) || osString.match(/OS X/)) {
+							prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+							.getService(Components.interfaces.nsIPromptService);
+							prompts.alert(window, messagetitle, message);
+						}else{
+							alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+							.getService(Components.interfaces.nsIAlertsService);
+							alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",	messagetitle, message, false, "", null);
+						}
+
 					} else {
 						message = aType+' '+strbundle.getFormattedString("hashfilenotmatch", [ file1checksum, filehash ]);
 						messagetitle = strbundle.getString("checkitalert");
@@ -140,13 +183,19 @@ var checkItInterface = {
 						.getService(Components.interfaces.nsIPromptService);
 						prompts.alert(window, messagetitle, message);
 					}
-				}else{
-
 				}
 			}
 		},		
 
 		compareWithClipboard: function (aType) {
+			
+			"use strict";
+			
+			// get osString
+			var osString = Components.classes["@mozilla.org/network/protocol;1?name=http"]
+			.getService(Components.interfaces.nsIHttpProtocolHandler).oscpu;
+			
+			var file1checksum, pastetext, message, messagetitle, prompts, alertsService;
 
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
@@ -173,8 +222,6 @@ var checkItInterface = {
 				return false;
 			}
 
-			var file1checksum, message, messagetitle, prompts, alertsService;
-
 			if (str) {
 
 				str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
@@ -199,13 +246,20 @@ var checkItInterface = {
 					if (file1checksum){
 
 						if (file1checksum == pastetext){
+
 							message = aType+' '+strbundle.getString("isamatch");
 							messagetitle = strbundle.getString("checkitmessage");
-							var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-							.getService(Components.interfaces.nsIAlertsService);
-							alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
-									messagetitle, message,
-									false, "", null);
+
+							if (osString.match(/OSX/) || osString.match(/Macintosh/) || osString.match(/OS X/)) {
+								prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+								.getService(Components.interfaces.nsIPromptService);
+								prompts.alert(window, messagetitle, message);
+							}else{
+								alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+								.getService(Components.interfaces.nsIAlertsService);
+								alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",	messagetitle, message, false, "", null);
+							}
+
 						} else {
 							message = aType+' '+strbundle.getFormattedString("clipboardnotmatch", [ pastetext, file1checksum ]);
 							messagetitle = strbundle.getString("checkitalert");
@@ -226,6 +280,12 @@ var checkItInterface = {
 		},
 
 		generateFileHash: function (aType) {
+			
+			"use strict";
+			
+			// get osString
+			var osString = Components.classes["@mozilla.org/network/protocol;1?name=http"]
+			.getService(Components.interfaces.nsIHttpProtocolHandler).oscpu;
 
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
@@ -243,15 +303,22 @@ var checkItInterface = {
 				//alert user
 				message = strbundle.getFormattedString("toclipboard", [ aType ]);
 				messagetitle = strbundle.getString("checkitmessage");
-				var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-				.getService(Components.interfaces.nsIAlertsService);
-				alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",
-						messagetitle, message,
-						false, "", null);
+
+				if (osString.match(/OSX/) || osString.match(/Macintosh/) || osString.match(/OS X/)) {
+					prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+					.getService(Components.interfaces.nsIPromptService);
+					prompts.alert(window, messagetitle, message);
+				}else{
+					alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+					.getService(Components.interfaces.nsIAlertsService);
+					alertsService.showAlertNotification("chrome://checkit/skin/icon32.png",	messagetitle, message, false, "", null);
+				}
 			}
 		},
 
 		processFileHash: function (aType) {
+			
+			"use strict";
 
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
@@ -266,7 +333,7 @@ var checkItInterface = {
 				//open input stream
 				var istream = Components.classes["@mozilla.org/network/file-input-stream;1"]
 				.createInstance(Components.interfaces.nsIFileInputStream);
-				istream.init(f, 0x01, 0444, 0);
+				istream.init(f, -1, 0, 0);
 
 				//hash check
 				var ch = Components.classes["@mozilla.org/security/hash;1"]
@@ -275,7 +342,7 @@ var checkItInterface = {
 				const PR_UINT32_MAX = 0xffffffff;
 				ch.updateFromStream(istream, PR_UINT32_MAX);
 				var hash = ch.finish(false);
-				function toHexString(charCode){ return ("0" + charCode.toString(16)).slice(-2); }
+				var toHexString = function (charCode){ return ("0" + charCode.toString(16)).slice(-2); }
 				var filechecksum = [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
 				filechecksum = filechecksum.replace(/[^0-9a-f]/ig, '').toLowerCase();
 				return filechecksum;
@@ -285,7 +352,9 @@ var checkItInterface = {
 		},
 
 		processFileContent: function (aType) {
-
+			
+			"use strict";
+			
 			//get localization strings
 			var strbundle = document.getElementById("checkitstrings");
 
@@ -301,7 +370,7 @@ var checkItInterface = {
 				// read file
 				var istream = Components.classes["@mozilla.org/network/file-input-stream;1"]
 				.createInstance(Components.interfaces.nsIFileInputStream);
-				istream.init(f, 0x01, 444, 0);
+				istream.init(f, -1, 0, 0);
 				istream.QueryInterface(Components.interfaces.nsILineInputStream);
 
 				var line = {}, lines = [], hasmore;
